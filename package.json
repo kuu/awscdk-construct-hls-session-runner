@@ -3,7 +3,7 @@
   "description": "AWS CDK construct for deploying a Lambda function and SFN state machines to fetch an HLS manifest",
   "repository": {
     "type": "git",
-    "url": "https://github.com/miyazaqui/awscdk-construct-hls-session-runner.git"
+    "url": "https://github.com/kuu/awscdk-construct-hls-session-runner"
   },
   "scripts": {
     "build": "npx projen build",
