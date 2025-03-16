@@ -7,7 +7,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   jsiiVersion: '~5.8.0',
   name: 'awscdk-construct-hls-session-runner',
   projenrcTs: true,
-  repositoryUrl: 'https://github.com/miyazaqui/awscdk-construct-hls-session-runner.git',
+  repositoryUrl: 'https://github.com/kuu/awscdk-construct-hls-session-runner.git',
   keywords: [
     'cdk',
     'cdk-construct',
