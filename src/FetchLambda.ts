@@ -12,6 +12,7 @@ export interface FetchLambdaProps {
   readonly indexOfRenditions: number; // N-th rendition to fetch
   readonly sessionRequirements: SessionRequirements;
   readonly eventStartTime: Date; // Start time of the event
+  readonly requestSegments?: boolean; // Whether to request segments
 }
 
 export class FetchLambda extends Construct {
@@ -26,6 +27,7 @@ export class FetchLambda extends Construct {
       indexOfRenditions,
       sessionRequirements,
       eventStartTime,
+      requestSegments = false,
     } = props;
 
     const TS_ENTRY = path.resolve(__dirname, 'lambda', 'index.ts');
@@ -43,6 +45,7 @@ export class FetchLambda extends Construct {
         INDEX_OF_RENDITIONS: indexOfRenditions.toString(10),
         SESSION_REQUIREMENTS: JSON.stringify(sessionRequirements),
         EVENT_START_TIME: eventStartTime.toISOString(),
+        SEGMENT_REQUEST: requestSegments.toString(),
       },
       logRetention: logs.RetentionDays.TWO_WEEKS,
     });
