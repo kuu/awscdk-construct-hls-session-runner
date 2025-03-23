@@ -7,6 +7,7 @@ const REQUEST_HEADERS = JSON.parse(process.env.REQUEST_HEADERS as string);
 const INDEX_OF_RENDITIONS = Number.parseInt(process.env.INDEX_OF_RENDITIONS as string, 10);
 const SESSION_REQUIREMENTS = JSON.parse(process.env.SESSION_REQUIREMENTS as string);
 const EVENT_START_TIME = new Date(process.env.EVENT_START_TIME as string);
+const SEGMENT_REQUEST = process.env.SEGMENT_REQUEST === 'true';
 
 HLS.setOptions({ silent: true }); // Surpress the error message
 
@@ -24,7 +25,11 @@ export async function handler(event: any) {
     urlList.length = desiredSessionVolume;
   }
   for (const url of urlList) {
-    await getPlaylist(url, false);
+    if (SEGMENT_REQUEST) {
+      await getLastSegment(url);
+    } else {
+      await getPlaylist(url, false);
+    }
   }
   return { urlList, timestamp: new Date().toISOString() };
 }
@@ -41,6 +46,29 @@ async function getRenditionUrl(masterPlaylistUrl: string, index: number): Promis
     return undefined;
   }
   return getAbsoluteUrl(masterPlaylistUrl, masterPlaylist.variants[index].uri);
+}
+
+async function getLastSegment(playlistUrl: string): Promise<string | undefined> {
+  const playlist = await getPlaylist(playlistUrl) as HLS.types.Playlist | undefined;
+  if (!playlist || playlist.isMasterPlaylist) {
+    console.error('Failed to fetch the media playlist');
+    return undefined;
+  }
+  const mediaPlaylist = playlist as HLS.types.MediaPlaylist;
+  if (mediaPlaylist.segments.length === 0) {
+    console.error('No segments found in the media playlist');
+    return undefined;
+  }
+  const lastSegmentUrl = getAbsoluteUrl(playlistUrl, mediaPlaylist.segments[mediaPlaylist.segments.length - 1].uri);
+  const res = await fetch(lastSegmentUrl, {
+    method: 'GET',
+    headers: REQUEST_HEADERS,
+  });
+  if (!res.ok) {
+    console.error(`Failed to fetch the HLS segment: ${res.status} ${res.statusText} - ${lastSegmentUrl}`);
+    return undefined;
+  }
+  return 'OK';
 }
 
 async function getPlaylist(url: string, parse = true): Promise<HLS.types.Playlist | string | undefined> {

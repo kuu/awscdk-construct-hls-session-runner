@@ -434,6 +434,7 @@ const fetchLambdaProps: FetchLambdaProps = { ... }
 | <code><a href="#awscdk-construct-hls-session-runner.FetchLambdaProps.property.indexOfRenditions">indexOfRenditions</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#awscdk-construct-hls-session-runner.FetchLambdaProps.property.requestHeaders">requestHeaders</a></code> | <code>{[ key: string ]: string}</code> | *No description.* |
 | <code><a href="#awscdk-construct-hls-session-runner.FetchLambdaProps.property.sessionRequirements">sessionRequirements</a></code> | <code><a href="#awscdk-construct-hls-session-runner.SessionRequirements">SessionRequirements</a></code> | *No description.* |
+| <code><a href="#awscdk-construct-hls-session-runner.FetchLambdaProps.property.requestSegments">requestSegments</a></code> | <code>boolean</code> | *No description.* |
 
 ---
 
@@ -484,6 +485,16 @@ public readonly sessionRequirements: SessionRequirements;
 ```
 
 - *Type:* <a href="#awscdk-construct-hls-session-runner.SessionRequirements">SessionRequirements</a>
+
+---
+
+##### `requestSegments`<sup>Optional</sup> <a name="requestSegments" id="awscdk-construct-hls-session-runner.FetchLambdaProps.property.requestSegments"></a>
+
+```typescript
+public readonly requestSegments: boolean;
+```
+
+- *Type:* boolean
 
 ---
 
@@ -548,6 +559,7 @@ const sessionRunnerProps: SessionRunnerProps = { ... }
 | <code><a href="#awscdk-construct-hls-session-runner.SessionRunnerProps.property.concurrency">concurrency</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#awscdk-construct-hls-session-runner.SessionRunnerProps.property.indexOfRenditions">indexOfRenditions</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#awscdk-construct-hls-session-runner.SessionRunnerProps.property.requestHeaders">requestHeaders</a></code> | <code>{[ key: string ]: string}</code> | *No description.* |
+| <code><a href="#awscdk-construct-hls-session-runner.SessionRunnerProps.property.requestSegments">requestSegments</a></code> | <code>boolean</code> | *No description.* |
 
 ---
 
@@ -628,6 +640,16 @@ public readonly requestHeaders: {[ key: string ]: string};
 ```
 
 - *Type:* {[ key: string ]: string}
+
+---
+
+##### `requestSegments`<sup>Optional</sup> <a name="requestSegments" id="awscdk-construct-hls-session-runner.SessionRunnerProps.property.requestSegments"></a>
+
+```typescript
+public readonly requestSegments: boolean;
+```
+
+- *Type:* boolean
 
 ---
 
