@@ -37,7 +37,7 @@ export class FetchLambda extends Construct {
       runtime: Runtime.NODEJS_18_X,
       entry: fs.existsSync(TS_ENTRY) ? TS_ENTRY : JS_ENTRY,
       handler: 'handler',
-      timeout: Duration.seconds(30),
+      timeout: Duration.seconds(requestSegments ? 60 : 30),
       environment: {
         NODE_ENV: process.env.NODE_ENV as string,
         HLS_ENDPOINT_URL: hlsEndpointUrl,
