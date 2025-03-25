@@ -60,7 +60,7 @@ async function getLastSegment(playlistUrl: string): Promise<string | undefined> 
     return undefined;
   }
   const lastSegmentUrl = getAbsoluteUrl(playlistUrl, mediaPlaylist.segments[mediaPlaylist.segments.length - 1].uri);
-  return fetchUrl(lastSegmentUrl);
+  return void fetchUrl(lastSegmentUrl); // Don't wait for the response
 }
 
 async function getPlaylist(url: string, parse = true): Promise<HLS.types.Playlist | string | undefined> {
@@ -72,17 +72,20 @@ async function getPlaylist(url: string, parse = true): Promise<HLS.types.Playlis
 }
 
 async function fetchUrl(url: string, returnText = false): Promise<string | undefined> {
-  const disableHeaders = process.env.DISABLE_REQUEST_HEADERS === 'true';
+  const headers = process.env.DISABLE_REQUEST_HEADERS === 'true' ? {} : REQUEST_HEADERS;
+  if (!returnText) {
+    return void fetch(url, {
+      method: 'GET',
+      headers,
+    });
+  }
   const res = await fetch(url, {
     method: 'GET',
-    headers: disableHeaders ? {} : REQUEST_HEADERS,
+    headers,
   });
   if (!res.ok) {
     console.error(`Failed to fetch the URL: ${res.status} ${res.statusText} - ${url}`);
     return undefined;
   }
-  if (returnText) {
-    return res.text();
-  }
-  return 'OK';
+  return res.text();
 }
