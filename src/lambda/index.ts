@@ -60,7 +60,7 @@ async function getLastSegment(playlistUrl: string): Promise<string | undefined> 
     return undefined;
   }
   const lastSegmentUrl = getAbsoluteUrl(playlistUrl, mediaPlaylist.segments[mediaPlaylist.segments.length - 1].uri);
-  return await fetchUrl(lastSegmentUrl);
+  return fetchUrl(lastSegmentUrl);
 }
 
 async function getPlaylist(url: string, parse = true): Promise<HLS.types.Playlist | string | undefined> {
@@ -82,7 +82,7 @@ async function fetchUrl(url: string, returnText = false): Promise<string | undef
     return undefined;
   }
   if (returnText) {
-    return await res.text();
+    return res.text();
   }
   return 'OK';
 }
