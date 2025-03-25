@@ -60,29 +60,29 @@ async function getLastSegment(playlistUrl: string): Promise<string | undefined> 
     return undefined;
   }
   const lastSegmentUrl = getAbsoluteUrl(playlistUrl, mediaPlaylist.segments[mediaPlaylist.segments.length - 1].uri);
-  const res = await fetch(lastSegmentUrl, {
-    method: 'GET',
-    headers: REQUEST_HEADERS,
-  });
-  if (!res.ok) {
-    console.error(`Failed to fetch the HLS segment: ${res.status} ${res.statusText} - ${lastSegmentUrl}`);
-    return undefined;
-  }
-  return 'OK';
+  return await fetchUrl(lastSegmentUrl);
 }
 
 async function getPlaylist(url: string, parse = true): Promise<HLS.types.Playlist | string | undefined> {
-  const res = await fetch(url, {
-    method: 'GET',
-    headers: REQUEST_HEADERS,
-  });
-  if (!res.ok) {
-    console.error(`Failed to fetch the HLS manifest: ${res.status} ${res.statusText} - ${url}`);
-    return undefined;
-  }
-  const txt = await res.text();
-  if (parse) {
+  const txt = await fetchUrl(url, true);
+  if (txt && parse) {
     return HLS.parse(txt);
   }
   return txt;
+}
+
+async function fetchUrl(url: string, returnText = false): Promise<string | undefined> {
+  const disableHeaders = process.env.DISABLE_REQUEST_HEADERS === 'true';
+  const res = await fetch(url, {
+    method: 'GET',
+    headers: disableHeaders ? {} : REQUEST_HEADERS,
+  });
+  if (!res.ok) {
+    console.error(`Failed to fetch the URL: ${res.status} ${res.statusText} - ${url}`);
+    return undefined;
+  }
+  if (returnText) {
+    return await res.text();
+  }
+  return 'OK';
 }
