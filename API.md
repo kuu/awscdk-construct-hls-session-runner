@@ -435,6 +435,7 @@ const fetchLambdaProps: FetchLambdaProps = { ... }
 | <code><a href="#awscdk-construct-hls-session-runner.FetchLambdaProps.property.requestHeaders">requestHeaders</a></code> | <code>{[ key: string ]: string}</code> | *No description.* |
 | <code><a href="#awscdk-construct-hls-session-runner.FetchLambdaProps.property.sessionRequirements">sessionRequirements</a></code> | <code><a href="#awscdk-construct-hls-session-runner.SessionRequirements">SessionRequirements</a></code> | *No description.* |
 | <code><a href="#awscdk-construct-hls-session-runner.FetchLambdaProps.property.requestSegments">requestSegments</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#awscdk-construct-hls-session-runner.FetchLambdaProps.property.timeoutInSeconds">timeoutInSeconds</a></code> | <code>number</code> | *No description.* |
 
 ---
 
@@ -495,6 +496,16 @@ public readonly requestSegments: boolean;
 ```
 
 - *Type:* boolean
+
+---
+
+##### `timeoutInSeconds`<sup>Optional</sup> <a name="timeoutInSeconds" id="awscdk-construct-hls-session-runner.FetchLambdaProps.property.timeoutInSeconds"></a>
+
+```typescript
+public readonly timeoutInSeconds: number;
+```
+
+- *Type:* number
 
 ---
 
@@ -560,6 +571,7 @@ const sessionRunnerProps: SessionRunnerProps = { ... }
 | <code><a href="#awscdk-construct-hls-session-runner.SessionRunnerProps.property.indexOfRenditions">indexOfRenditions</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#awscdk-construct-hls-session-runner.SessionRunnerProps.property.requestHeaders">requestHeaders</a></code> | <code>{[ key: string ]: string}</code> | *No description.* |
 | <code><a href="#awscdk-construct-hls-session-runner.SessionRunnerProps.property.requestSegments">requestSegments</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#awscdk-construct-hls-session-runner.SessionRunnerProps.property.timeoutInSeconds">timeoutInSeconds</a></code> | <code>number</code> | *No description.* |
 
 ---
 
@@ -650,6 +662,16 @@ public readonly requestSegments: boolean;
 ```
 
 - *Type:* boolean
+
+---
+
+##### `timeoutInSeconds`<sup>Optional</sup> <a name="timeoutInSeconds" id="awscdk-construct-hls-session-runner.SessionRunnerProps.property.timeoutInSeconds"></a>
+
+```typescript
+public readonly timeoutInSeconds: number;
+```
+
+- *Type:* number
 
 ---
 
