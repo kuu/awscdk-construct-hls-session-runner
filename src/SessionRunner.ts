@@ -28,6 +28,7 @@ export interface SessionRunnerProps {
   readonly indexOfRenditions?: number;
   readonly concurrency?: number;
   readonly requestSegments?: boolean;
+  readonly timeoutInSeconds?: number;
 }
 
 export class SessionRunner extends Construct {
@@ -43,6 +44,7 @@ export class SessionRunner extends Construct {
     indexOfRenditions = 0,
     concurrency = 1,
     requestSegments = false,
+    timeoutInSeconds = 30,
   }: SessionRunnerProps) {
     super(scope, id);
 
@@ -59,6 +61,7 @@ export class SessionRunner extends Construct {
         sessionRequirements: requirements,
         eventStartTime: startTime,
         requestSegments,
+        timeoutInSeconds,
       });
       const invoke = new LambdaInvoke(this, `LambdaInvoke${i}`, {
         lambdaFunction: fetchLambda.func,

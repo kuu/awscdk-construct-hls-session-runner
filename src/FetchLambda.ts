@@ -13,6 +13,7 @@ export interface FetchLambdaProps {
   readonly sessionRequirements: SessionRequirements;
   readonly eventStartTime: Date; // Start time of the event
   readonly requestSegments?: boolean; // Whether to request segments
+  readonly timeoutInSeconds?: number; // Timeout value in seconds
 }
 
 export class FetchLambda extends Construct {
@@ -28,6 +29,7 @@ export class FetchLambda extends Construct {
       sessionRequirements,
       eventStartTime,
       requestSegments = false,
+      timeoutInSeconds = 30,
     } = props;
 
     const TS_ENTRY = path.resolve(__dirname, 'lambda', 'index.ts');
@@ -37,7 +39,7 @@ export class FetchLambda extends Construct {
       runtime: Runtime.NODEJS_18_X,
       entry: fs.existsSync(TS_ENTRY) ? TS_ENTRY : JS_ENTRY,
       handler: 'handler',
-      timeout: Duration.seconds(requestSegments ? 60 : 30),
+      timeout: Duration.seconds(timeoutInSeconds),
       environment: {
         NODE_ENV: process.env.NODE_ENV as string,
         HLS_ENDPOINT_URL: hlsEndpointUrl,
